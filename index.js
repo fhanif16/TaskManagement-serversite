@@ -66,11 +66,17 @@ async function run() {
     const taskCollection = client.db('taskManager').collection('task');
 
     
-    app.get('/task', async(req, res)=>{
-        const result = await taskCollection.find().toArray();
-        res.send(result);
-    })
+   
 
+    app.get("/task", async (req, res) => {
+      const { email } = req.query;
+ 
+      const tasks = await taskCollection.find({ userEmail: email }).toArray();  
+      res.send(tasks);    
+
+    });
+    
+    
 
 
 
