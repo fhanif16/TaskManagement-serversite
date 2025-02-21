@@ -1,15 +1,35 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 
-require('dotenv').config();
+
 const port = process.env.PORT || 5000;
 
 //middle ware
 
-app.use(cors ());
-app.use(express.json());
+app.use(cors({
+  origin:[
+  "http://localhost:5173",
+  "https://taskmanager-4a2ae.web.app",
+  "https://taskmanager-4a2ae.firebaseapp.com/"
+ 
+ 
+  ],
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 200
+ 
+ }));
+
+// app.use(cors({
+//   origin: "*", // Allow all origins (Not recommended for production)
+//   credentials: true
+// }));
+ app.use(express.json());
+
 
 
 
@@ -35,10 +55,10 @@ async function run() {
 
 
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    //await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  //  await client.db("admin").command({ ping: 1 });
+  //  console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
 
 
